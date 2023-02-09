@@ -1,4 +1,4 @@
-const API = 'https://spotify-data.p.rapidapi.com/artist_albums/?id=4q3ewBCX7sLwd24euuV69X&offset=0&limit=100';
+const API = 'https://spotify23.p.rapidapi.com/playlist_tracks/?id=59ZoxpkHe1Kvr20X5OLsfZ%3Fsi%3Dcp8MnXSHTgWW5QiU5DgRrg%26pt%3D08de9b268697028af7d59f2bfb6105f7&offset=0&limit=100';
 
 const content = null || document.getElementById('content');
 
@@ -6,7 +6,7 @@ const options = {
 	method: 'GET',
 	headers: {
 		'X-RapidAPI-Key': 'c25383553emsh33b873f85a7d175p143be8jsn50dce81fb390',
-		'X-RapidAPI-Host': 'spotify-data.p.rapidapi.com'
+		'X-RapidAPI-Host': 'spotify23.p.rapidapi.com'
 	}
 };
 
@@ -25,27 +25,29 @@ async function fetchData (urlApi){
     try{
         const videos = await fetchData (API);
         let view =   `
-        ${videos.data.artist.discography.albums.items.map(video =>`
+        ${videos.tracks.items.map(video =>`
+        <a href="${video.track.preview_url} "target="_blank">
         <div class="group relative">
+
         <div
           class="w-full bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:aspect-none">
-          <img src="${video.releases.items[0].coverArt.sources[2].url}" alt="" class="w-full">
+          <img src="${video.track.album.images[0].url}" alt="" class="w-full">
         </div>
         <div class="mt-4 flex justify-between">
           <h3 class="text-sm text-gray-700">
             <span aria-hidden="true" class="absolute inset-0"></span>
-            ${video.releases.items[0].name}
+            ${video.track.name}
           </h3>
-            <span>${video.releases.items[0].tracks.totalCount}</span>
         </div>
         <div>
         <h3 class="text-sm text-blue-700">
         <span aria-hidden="true" class="absolute inset-0"></span>
-        Año : ${video.releases.items[0].date.year}
+        Artista : ${video.track.artists[0].name}
       </h3>
         </div>
       </div>
-        `).slice(0,6).join('')}
+      </a>
+        `).slice(0,150).join('')}
         `;
         content.innerHTML = view;
     }
