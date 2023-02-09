@@ -10,13 +10,10 @@ const options = {
 	}
 };
 
-
 // fetch('', options)
 // 	.then(response => response.json())
 // 	.then(response => console.log(response))
 // 	.catch(err => console.error(err));
-
-
 
 async function fetchData (urlApi){
     const response = await fetch(urlApi,options);
@@ -48,7 +45,7 @@ async function fetchData (urlApi){
       </h3>
         </div>
       </div>
-        `).join('')}
+        `).slice(0,6).join('')}
         `;
         content.innerHTML = view;
     }
